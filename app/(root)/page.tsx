@@ -2,7 +2,7 @@
 
 
 import { StoreModal } from "@/components/modals/store-modal";
-import { useStoreModal } from "@/lib/hooks/use-store-modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
 import { useEffect } from "react";
 
 
