@@ -22,6 +22,7 @@ model Store {
   updatedAt DateTime @updatedAt
 
 }
+
 model Billboard{
 
     id        String @id @default(uuid())
