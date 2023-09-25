@@ -9,7 +9,7 @@ import { z } from "zod";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use, useState } from "react";
+import {  useState } from "react";
 import { Form,
          FormControl,
          FormField,
@@ -22,7 +22,6 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
@@ -30,8 +29,6 @@ const formSchema = z.object({
     label: z.string().min(1),
     imageUrl: z.string().min(1),
 });
-
-
 
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -61,7 +58,7 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
             label : "",
-            imageUrl : "",
+            imageUrl : ""
         }
     });
 
@@ -75,6 +72,7 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
               await axios.post(`/api/${params.storeId}/billboards`, data);
             }
             router.refresh();
+            router.push(`/${params.storeId}/billboards`);
             toast.success(toastMessage);
 
         } catch (error) {
