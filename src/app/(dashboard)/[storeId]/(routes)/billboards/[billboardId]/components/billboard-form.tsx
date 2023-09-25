@@ -24,6 +24,7 @@ import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useOrigin } from "@/hooks/use-origin";
+import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
     label: z.string().min(1),
@@ -97,56 +98,74 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
     return (
       <>
         <AlertModal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        onConfirm={onDelete}
-        loading={loading}
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          onConfirm={onDelete}
+          loading={loading}
         />
         <div className="flex items-center justify-between">
-          <Heading
-          title={title}
-          description={description}
-          />
-          <Button disabled={loading} variant="destructive" size="icon" onClick={() => setOpen(true)}>
-            <Trash className="h-4 w-4" />
-          </Button>
+          <Heading title={title} description={description} />
+
+          {initialData && (
+            <Button
+              disabled={loading}
+              variant="destructive"
+              size="icon"
+              onClick={() => setOpen(true)}
+            >
+              <Trash className="h-4 w-4" />
+            </Button>
+          )}
         </div>
         <Separator />
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-                <div className="grid grid-cols-3 gap-8">
-                    <FormField
-                    control={form.control}
-                    name="label"
-                    render={({ field }) => (
-
-                        <FormItem>
-                            <FormLabel>Label</FormLabel>
-                            <FormControl>
-                                <Input
-                                    disabled={loading}
-                                    placeholder="Billboard label"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage/>
-                        </FormItem>
-
-                    )}
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-8 w-full"
+          >
+            <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Background image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                    value={field.value ? [field.value] : []}
+                    disabled={loading}
+                    onChange={(url) => field.onChange(url)}
+                    onRemove={() => field.onChange("")}
                     />
-                </div>
-                <Button
-                disabled={loading}
-                className="ml-auto"
-                type="submit"
-                >
-                    {action}
-                </Button>
-
-            </form>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-3 gap-8">
+              <FormField
+                control={form.control}
+                name="label"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Label</FormLabel>
+                    <FormControl>
+                      <Input
+                        disabled={loading}
+                        placeholder="Billboard label"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <Button disabled={loading} className="ml-auto" type="submit">
+              {action}
+            </Button>
+          </form>
         </Form>
         <Separator />
-        
       </>
     );
 };
