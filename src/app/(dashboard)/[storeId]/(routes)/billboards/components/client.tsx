@@ -40,6 +40,7 @@ export const BillboardClient: React.FC<BillboardClientProps> = ({
         columns={columns}
         data={data}
         />
+        
         </>
     )
 };
