@@ -58,7 +58,6 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
             await axios.patch(`/api/stores/${params.storeId}`, data);
             router.refresh();
             toast.success("Store updated!");
-
         } catch (error) {
             toast.error("Something went wrong!");
         } finally{
@@ -68,19 +67,18 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
 
     const onDelete = async () => {
         try{
-            setLoading(true);
-            await axios.delete(`/api/stores/${params.storeId}`);
+            setLoading(true)
+            await axios.delete(`/api/stores/${params.storeId}`)
             router.refresh();
-            router.push("/");
+            router.push("/")
             toast.success("Store deleted!");
-
         } catch (error) {
             toast.error("Make sure you deleted all products and categories first!");
-        } finally{
+        } finally {
             setLoading(false)
             setOpen(false)
         }
-    }
+    };
 
     return (
       <>
@@ -91,8 +89,14 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
         loading={loading}
         />
         <div className="flex items-center justify-between">
-          <Heading title="Settings" description="Manage your store settings" />
-          <Button disabled={loading} variant="destructive" size="icon" onClick={() => setOpen(true)}>
+          <Heading
+          title="Settings"
+          description="Manage your store settings" />
+          <Button
+          disabled={loading}
+          variant="destructive"
+          size="icon"
+          onClick={() => setOpen(true)}>
             <Trash className="h-4 w-4" />
           </Button>
         </div>
@@ -134,7 +138,8 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
         <ApiAlert
                 title="NEXT_PUBLIC_API_URL"
                 description={`${origin}/api/${params.storeId}`}
-                variant={"public"}        />
+                variant={"public"}
+        />
       </>
     );
 };

@@ -48,7 +48,7 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+
     const title = initialData ? "Edit Billboard" : "Create Billboard";
     const description = initialData ? "Edit a Billboard" : " Add a new Billboard";
     const toastMessage = initialData ? "Billboard updated." : "Billboard created.";
@@ -96,7 +96,7 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
             setLoading(false)
             setOpen(false)
         }
-    }
+    };
     return (
       <>
         <AlertModal
@@ -106,18 +106,18 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
           loading={loading}
         />
         <div className="flex items-center justify-between">
-          <Heading title={title} description={description} />
-
-          {initialData && (
-            <Button
+          <Heading
+          title={title}
+          description={description}
+          />
+          <Button
               disabled={loading}
               variant="destructive"
               size="icon"
               onClick={() => setOpen(true)}
             >
               <Trash className="h-4 w-4" />
-            </Button>
-          )}
+          </Button>
         </div>
         <Separator />
         <Form {...form}>
@@ -167,7 +167,6 @@ export  const BillboardForm : React.FC<BillboardFormProps> = ({
             </Button>
           </form>
         </Form>
-        <Separator />
       </>
     );
 };

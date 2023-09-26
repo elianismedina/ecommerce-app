@@ -25,8 +25,6 @@ const BillboardPage = async ({
             </div>
 
         </div>
-        
      );
 }
- 
 export default BillboardPage;

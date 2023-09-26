@@ -48,12 +48,9 @@ export async function DELETE(
     try{
         const { userId } = auth();
 
-        
-
         if (!userId){
-            return new NextResponse("Unauthorized", { status: 401 })
+            return new NextResponse("Unauthenticated", { status: 401 })
         }
-        
         if (!params.storeId){
             return new NextResponse("Store ID is required", { status: 400 })
         }
