@@ -68,7 +68,7 @@ export  const ColorForm : React.FC<ColorFormProps> = ({
             setLoading(true);
 
             if(initialData){
-              await axios.patch(`/api/${params.storeId}/colors/${params.sizeId}`, data);
+              await axios.patch(`/api/${params.storeId}/colors/${params.colorId}`, data);
             } else {
               await axios.post(`/api/${params.storeId}/colors`, data);
             }
@@ -86,7 +86,7 @@ export  const ColorForm : React.FC<ColorFormProps> = ({
     const onDelete = async () => {
         try{
             setLoading(true);
-            await axios.delete(`/api/${params.storeId}/colors/${params.sizeId}`);
+            await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
             router.refresh();
             router.push(`/${params.storeId}/colors`);
             toast.success("Color deleted!");
@@ -152,11 +152,18 @@ export  const ColorForm : React.FC<ColorFormProps> = ({
                   <FormItem>
                     <FormLabel>Value</FormLabel>
                     <FormControl>
+                      <div className="flex items-center gap-x-4">
                       <Input
                         disabled={loading}
                         placeholder="Color value"
                         {...field}
                       />
+                      <div
+                      className="border p-4 rounded-full"
+                      style={{backgroundColor: field.value}}
+                      />
+                      </div>
+                      
                     </FormControl>
                     <FormMessage />
                   </FormItem>
