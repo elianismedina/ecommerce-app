@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import { Billboard } from "@prisma/client";
+
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
@@ -37,7 +37,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({
         </div>
         <Separator/>
         <DataTable
-        searchKey="label"
+        searchKey="name"
         columns={columns}
         data={data}
         />
