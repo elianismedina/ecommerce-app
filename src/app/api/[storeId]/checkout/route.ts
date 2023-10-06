@@ -1,7 +1,6 @@
 
 import Stripe from 'stripe';
 import { NextResponse } from 'next/server';
-
 import prismadb from '@/lib/prismadb';
 import { stripe } from '@/lib/stripe';
 
@@ -28,7 +27,7 @@ export async function POST(
   }
 
 
-  const products = await prismadb   .product.findMany({
+  const products = await prismadb.product.findMany({
     where:{
         id: {
             in: productIds
