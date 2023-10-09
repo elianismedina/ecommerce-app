@@ -14,7 +14,7 @@ export async function PATCH(
         const { name } = body;
 
         if (!userId){
-            return new NextResponse("Unauthorized", { status: 401 })
+            return new NextResponse("Unauthenticated", { status: 403 })
         }
         if (!name){
             return new NextResponse("Name is required", { status: 400 })
@@ -26,7 +26,7 @@ export async function PATCH(
         const store = await prismadb.store.updateMany({
             where: {
                 id: params.storeId,
-                userId
+                userId,
             },
             data: {
                 name
@@ -34,7 +34,6 @@ export async function PATCH(
         });
 
         return NextResponse.json(store);
-
     }catch(error){
         console.log('[STORE_PATCH]', error);
         return new NextResponse("Internal Server Error", { status: 500 })
@@ -49,7 +48,7 @@ export async function DELETE(
         const { userId } = auth();
 
         if (!userId){
-            return new NextResponse("Unauthenticated", { status: 401 })
+            return new NextResponse("Unauthenticated", { status: 403 })
         }
         if (!params.storeId){
             return new NextResponse("Store ID is required", { status: 400 })
@@ -64,7 +63,7 @@ export async function DELETE(
 
         return NextResponse.json(store);
 
-    }catch(error){
+    } catch(error){
         console.log('[STORE_DELETE]', error);
         return new NextResponse("Internal Server Error", { status: 500 })
     }

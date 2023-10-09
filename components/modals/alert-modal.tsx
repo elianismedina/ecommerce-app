@@ -19,6 +19,7 @@ export const AlertModal: React.FC<AlertModalProps> = ({
 
 }) => {
     const [isMounted, setIsMounted] = useState(false);
+    
     useEffect(() => {
         setIsMounted(true);
     }, []);

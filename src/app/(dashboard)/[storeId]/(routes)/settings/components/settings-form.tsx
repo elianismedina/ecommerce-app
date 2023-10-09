@@ -9,7 +9,7 @@ import { z } from "zod";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use, useState } from "react";
+import { useState } from "react";
 import { Form,
          FormControl,
          FormField,
@@ -51,34 +51,35 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
         resolver: zodResolver(formSchema),
         defaultValues: initialData,
     });
-
     const onSubmit = async (data: SettingsFormValues) => {
-        try{
-            setLoading(true);
-            await axios.patch(`/api/stores/${params.storeId}`, data);
-            router.refresh();
-            toast.success("Store updated!");
-        } catch (error) {
-            toast.error("Something went wrong!");
-        } finally{
-            setLoading(false);
-        }
-    };
-
-    const onDelete = async () => {
-        try{
-            setLoading(true)
-            await axios.delete(`/api/stores/${params.storeId}`);
-            router.refresh();
-            router.push("/")
-            toast.success("Store deleted!");
+        try {
+          setLoading(true);
+          await axios.patch(`/api/stores/${params.storeId}`, data);
+          router.refresh();
+          toast.success('Store updated.');
         } catch (error: any) {
-            toast.error("Make sure you deleted all products and categories first!");
+          toast.error('Something went wrong.');
         } finally {
-            setLoading(false);
-            setOpen(false);
+          setLoading(false);
         }
-    }
+      };
+    
+      const onDelete = async () => {
+        try {
+          setLoading(true);
+          await axios.delete(`/api/stores/${params.storeId}`);
+          router.refresh();
+          router.push('/');
+          toast.success('Store deleted.');
+        } catch (error: any) {
+          toast.error('Make sure you removed all products and categories first.');
+        } finally {
+          setLoading(false);
+          setOpen(false);
+        }
+      }
+
+
 
     return (
       <>
@@ -91,12 +92,14 @@ export  const SettingsForm : React.FC<SettingsFormProps> = ({
         <div className="flex items-center justify-between">
           <Heading
           title="Settings"
-          description="Manage your store settings" />
+          description="Manage your store settings"
+          />
           <Button
           disabled={loading}
           variant="destructive"
-          size="icon"
-          onClick={() => setOpen(true)}>
+          size="sm"
+          onClick={() => setOpen(true)}
+          >
             <Trash className="h-4 w-4" />
           </Button>
         </div>
